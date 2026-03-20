@@ -1,0 +1,19 @@
+# Local/editor noise
+.DS_Store
+Thumbs.db
+
+# Secrets and local runtime files
+.env
+.env.*
+.cache/
+sessions/
+
+# Guard rails for this docs-only public repository
+stage_scout_dev/
+StageScout_infra/
+application/
+ansible/
+terraform/
+
+# Local screenshot workspace
+assets/screenshots-local/
