@@ -25,11 +25,8 @@ This public repository is a product and architecture showcase for the live app a
 | Automation | Terraform, Ansible | Provisioning, server bootstrap, deploy flow |
 | Observability | Prometheus, Grafana, Node Exporter | App and host metrics |
 
-## Product walkthrough
-
-| Landing | Preferences |
-| --- | --- |
-| ![Landing](assets/screenshots/landing.png) | ![Preferences](assets/screenshots/preferences.png) |
+---
+![Preferences](assets/screenshots/preferences.png)
 
 ## Architecture
 
