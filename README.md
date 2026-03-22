@@ -1,32 +1,53 @@
 # StageScout
 
-StageScout is a concert discovery app that turns a user's Spotify taste into live event recommendations.
+> Concert discovery powered by your Spotify taste.
 
-This public repository is a product and architecture showcase for the live app at [stage-scout.fun](https://stage-scout.fun).
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.x-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![AWS](https://img.shields.io/badge/AWS-EC2-FF9900?logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
+[![Terraform](https://img.shields.io/badge/IaC-Terraform-7B42BC?logo=terraform&logoColor=white)](https://www.terraform.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Live](https://img.shields.io/badge/Live-stage--scout.fun-brightgreen)](https://stage-scout.fun)
+
+StageScout connects to a user's Spotify account, analyzes their listening history, and surfaces live concerts near them — filtered by artist taste, location, and date range.
+
+---
+
+## Screenshots
+
+**Landing**
 
 ![StageScout landing page](assets/screenshots/landing.png)
 
-## What the app does
+**Preferences**
 
-1. Connects to Spotify with OAuth.
-2. Pulls a user's top artists and listening signals.
-3. Lets the user pick a location and date range.
-4. Finds matching concerts and presents them in a focused dashboard.
+![Preferences](assets/screenshots/preferences.png)
+
+---
+
+## How it works
+
+1. User authenticates via **Spotify OAuth**
+2. App pulls their **top artists and listening signals**
+3. User selects a **location and date range**
+4. Matching concerts are fetched and displayed in a focused dashboard
+
+---
 
 ## Stack
 
 | Area | Tools | Notes |
-| --- | --- | --- |
-| Backend | Flask, Gunicorn | App factory pattern with blueprint-based routing |
-| Frontend | HTML, CSS, Vanilla JavaScript | Lightweight UI with multi-theme support |
-| Data sources | Spotify, Ticketmaster, Geoapify | Identity, music taste, event search, location autocomplete |
+|---|---|---|
+| Backend | Flask, Gunicorn | App factory pattern, blueprint-based routing |
+| Frontend | HTML, CSS, Vanilla JS | Lightweight UI with multi-theme support |
+| Data sources | Spotify, Ticketmaster, Geoapify | Music taste, event search, location autocomplete |
 | State | Flask-Session, filesystem cache | Server-side sessions and cached API results |
 | Infra | AWS EC2, Docker, Nginx | Single-host production deployment |
-| Automation | Terraform, Ansible | Provisioning, server bootstrap, deploy flow |
+| Automation | Terraform, Ansible | Provisioning, bootstrap, and deploy flow |
 | Observability | Prometheus, Grafana, Node Exporter | App and host metrics |
 
 ---
-![Preferences](assets/screenshots/preferences.png)
 
 ## Architecture
 
@@ -37,13 +58,15 @@ flowchart LR
     A --> S[Spotify Web API]
     A --> T[Ticketmaster API]
     A --> G[Geoapify API]
-    A --> C[Filesystem Cache and Sessions]
+    A --> C[Filesystem Cache & Sessions]
     A --> M[Prometheus Metrics]
     M --> P[Prometheus]
     P --> F[Grafana]
 ```
 
-## Deployment model
+---
+
+## Deployment
 
 ```mermaid
 flowchart TD
@@ -56,6 +79,10 @@ flowchart TD
     DOCKER --> APP[Flask + Gunicorn]
 ```
 
+Full deployment docs in [`docs/`](docs/).
+
+---
+
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
