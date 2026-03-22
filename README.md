@@ -2,7 +2,7 @@
 
 StageScout is a concert discovery app that turns a user's Spotify taste into live event recommendations.
 
-This public repository is a product and architecture showcase for the live app at [stage-scout.fun](https://stage-scout.fun). It intentionally excludes the private application source, deployment code, secrets, and environment-specific configuration.
+This public repository is a product and architecture showcase for the live app at [stage-scout.fun](https://stage-scout.fun).
 
 ![StageScout landing page](assets/screenshots/landing.png)
 
@@ -24,14 +24,6 @@ This public repository is a product and architecture showcase for the live app a
 | Infra | AWS EC2, Docker, Nginx | Single-host production deployment |
 | Automation | Terraform, Ansible | Provisioning, server bootstrap, deploy flow |
 | Observability | Prometheus, Grafana, Node Exporter | App and host metrics |
-
-## Highlights
-
-- Personalized event discovery based on actual Spotify listening history.
-- Progressive loading flow that shows location matches first and fetches remaining artist events in the background.
-- Secure server-side session handling with hardened cookie settings and proxy-aware production behavior.
-- Multi-layer deployment setup: Terraform provisions infrastructure, Ansible configures the host, Docker runs the app, Nginx terminates SSL.
-- Metrics-ready production stack with an application `/metrics` endpoint and optional Prometheus/Grafana monitoring.
 
 ## Product walkthrough
 
@@ -66,28 +58,6 @@ flowchart TD
     HOST --> DOCKER[Docker container]
     DOCKER --> APP[Flask + Gunicorn]
 ```
-
-## Repository contents
-
-- [docs/application-architecture.md](docs/application-architecture.md) explains the application structure, routes, data flow, and runtime behavior.
-- [docs/infrastructure.md](docs/infrastructure.md) covers provisioning, deployment, networking, and monitoring.
-- [docs/repository-scope.md](docs/repository-scope.md) defines what this public repo includes and what stays private.
-
-## Public repo scope
-
-Included here:
-
-- Product overview
-- Architecture and deployment documentation
-- Public-safe screenshots and diagrams
-- High-level stack and operations notes
-
-Excluded from this repo:
-
-- Application source code
-- Infrastructure as code and Ansible playbooks
-- Secrets, credentials, and environment values
-- Internal debugging workflows and production-specific implementation details
 
 ## License
 
