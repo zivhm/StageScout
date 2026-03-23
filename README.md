@@ -28,10 +28,8 @@ StageScout transforms your Spotify listening history into personalized concert r
 - **Spotify-Powered Discovery** — Pull your top artists directly from Spotify for truly personalized recommendations
 - **Location & Date Filtering** — Search for concerts within a specific radius and date range
 - **Progressive Loading** — See location-based matches instantly while artist-specific events load in the background
-- **Clean Dashboard** — Focused view of upcoming concerts with all the essential details
 
 ### For Developers
-- **Blueprint-Based Architecture** — Clean separation of concerns with modular Flask blueprints
 - **Server-Side Sessions** — Secure session management with hardened cookie settings
 - **Multi-API Integration** — Unified interface for Spotify, Ticketmaster, and Geoapify
 - **Production-Ready** — Full IaC pipeline with Terraform, Ansible, Docker, and Nginx
