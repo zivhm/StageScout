@@ -54,17 +54,55 @@ StageScout transforms your Spotify listening history into personalized concert r
 
 ## How It Works
 
-```
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Spotify   │───>│   Select    │───>│  Location   │───>│  Concert    │
-│   Login     │    │   Artists   │    │  & Dates    │    │  Results    │
-└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+```mermaid
+flowchart LR
+    subgraph Auth["1. Authentication (Spotify)"]
+        A1[Click Login] --> A2[OAuth redirect]
+        A2 --> A3[Approve access]
+        A3 --> A4[Session created]
+    end
+
+    subgraph Artists["2. Artist Selection (Spotify)"]
+        B1[Fetch top artists] --> B2[Display grid]
+        B2 --> B3[Select favorites]
+        B3 --> B4[Saved to session]
+    end
+
+    subgraph Location["3. Location & Dates (Geoapify)"]
+        C1[Type city/address] --> C2[Geocode location]
+        C2 --> C3[Capture lat/long]
+        C3 --> C4[Pick date range]
+    end
+
+    subgraph Concerts["4. Concert Discovery (Ticketmaster)"]
+        D1[Build query] --> D2[Geo + date search]
+        D2 --> D3[Fetch nearby events]
+        D3 --> D4[Match to artists]
+        D4 --> D5[Filter results]
+    end
+
+    subgraph Results[5. Results Dashboard]
+        E1[Display cards] --> E2[Venue, date, price]
+        E2 --> E3[Background load remaining]
+    end
+
+    Auth --> Artists
+    Artists --> Location
+    Location --> Concerts
+    Concerts --> Results
+
+    classDef SpotifyStep fill:#1db954,color:#fff,stroke:#1db954
+    classDef GeoapifyStep fill:#e22121,color:#fff,stroke:#e22121
+    classDef TicketmasterStep fill:#f47b20,color:#fff,stroke:#f47b20
+    classDef ResultsStep fill:#1e3264,color:#fff,stroke:#1e3264
+
+    class Auth,Artists SpotifyStep
+    class Location GeoapifyStep
+    class Concerts TicketmasterStep
+    class Results ResultsStep
 ```
 
-1. **Connect** — Authenticate via Spotify OAuth
-2. **Select** — Review your top artists and confirm your favorites
-3. **Search** — Choose your location and preferred date range
-4. **Discover** — View upcoming concerts from your selected artists
+**The magic:** Ticketmaster searches events by geographic coordinates, while Spotify provides your artist list. StageScout bridges both — finding concerts near you for the artists you actually listen to.
 
 ## Screenshots
 
