@@ -56,7 +56,7 @@ StageScout transforms your Spotify listening history into personalized concert r
 
 ```
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│   Spotify   │───▶│   Select    │───▶│  Location   │───▶│  Concert    │
+│   Spotify   │───>│   Select    │───>│  Location   │───>│  Concert    │
 │   Login     │    │   Artists   │    │  & Dates    │    │  Results    │
 └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
 ```
