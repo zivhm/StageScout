@@ -120,8 +120,7 @@ flowchart LR
     A --> G[Geoapify API]
     A --> C[Cache & Sessions]
     A --> M[Prometheus]
-    M --> P[Prometheus]
-    P --> G2[Grafana]
+    M --> P[Grafana]
 ```
 
 ### Deployment Pipeline
