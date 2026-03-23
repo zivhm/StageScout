@@ -1,94 +1,131 @@
 # StageScout
 
-StageScout is a concert discovery app that turns a user's Spotify taste into live event recommendations.
+<p align="center">
+  <img src="assets/screenshots/landing.png" alt="StageScout" width="800"/>
+</p>
 
-This public repository is a product and architecture showcase for the live app at [stage-scout.fun](https://stage-scout.fun). It intentionally excludes the private application source, deployment code, secrets, and environment-specific configuration.
+<p align="center">
+  <strong>Discover concerts for the artists you actually listen to.</strong>
+</p>
 
-![StageScout landing page](assets/screenshots/landing.png)
+<p align="center">
+  <a href="https://stage-scout.fun">Live App</a>
+  •
+  <a href="docs/application-architecture.md">Architecture</a>
+  •
+  <a href="docs/infrastructure.md">Infrastructure</a>
+  •
+  <a href="docs/repository-scope.md">Repo Scope</a>
+</p>
 
-## What the app does
+---
 
-1. Connects to Spotify with OAuth.
-2. Pulls a user's top artists and listening signals.
-3. Lets the user pick a location and date range.
-4. Finds matching concerts and presents them in a focused dashboard.
+StageScout transforms your Spotify listening history into personalized concert recommendations. Connect your account, pick your location and dates, and discover live shows from your favorite artists.
 
-## Stack
+## Features
 
-| Area | Tools | Notes |
-| --- | --- | --- |
-| Backend | Flask, Gunicorn | App factory pattern with blueprint-based routing |
-| Frontend | HTML, CSS, Vanilla JavaScript | Lightweight UI with multi-theme support |
-| Data sources | Spotify, Ticketmaster, Geoapify | Identity, music taste, event search, location autocomplete |
-| State | Flask-Session, filesystem cache | Server-side sessions and cached API results |
-| Infra | AWS EC2, Docker, Nginx | Single-host production deployment |
-| Automation | Terraform, Ansible | Provisioning, server bootstrap, deploy flow |
-| Observability | Prometheus, Grafana, Node Exporter | App and host metrics |
+### For Users
+- **Spotify-Powered Discovery** — Pull your top artists directly from Spotify for truly personalized recommendations
+- **Location & Date Filtering** — Search for concerts within a specific radius and date range
+- **Progressive Loading** — See location-based matches instantly while artist-specific events load in the background
+- **Clean Dashboard** — Focused view of upcoming concerts with all the essential details
 
-## Highlights
+### For Developers
+- **Blueprint-Based Architecture** — Clean separation of concerns with modular Flask blueprints
+- **Server-Side Sessions** — Secure session management with hardened cookie settings
+- **Multi-API Integration** — Unified interface for Spotify, Ticketmaster, and Geoapify
+- **Production-Ready** — Full IaC pipeline with Terraform, Ansible, Docker, and Nginx
 
-- Personalized event discovery based on actual Spotify listening history.
-- Progressive loading flow that shows location matches first and fetches remaining artist events in the background.
-- Secure server-side session handling with hardened cookie settings and proxy-aware production behavior.
-- Multi-layer deployment setup: Terraform provisions infrastructure, Ansible configures the host, Docker runs the app, Nginx terminates SSL.
-- Metrics-ready production stack with an application `/metrics` endpoint and optional Prometheus/Grafana monitoring.
+## Tech Stack
 
-## Product walkthrough
+<p align="center">
 
-| Landing | Preferences |
-| --- | --- |
+| Category | Stack |
+|----------|-------|
+| **Backend** | Flask, Gunicorn |
+| **Frontend** | HTML, CSS, Vanilla JS |
+| **APIs** | Spotify, Ticketmaster, Geoapify |
+| **State** | Flask-Session, Filesystem Cache |
+| **Infrastructure** | AWS EC2, Docker, Nginx |
+| **Automation** | Terraform, Ansible |
+| **Monitoring** | Prometheus, Grafana |
+
+</p>
+
+## How It Works
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Spotify   │───▶│   Select    │───▶│  Location   │───▶│  Concert    │
+│   Login     │    │   Artists   │    │  & Dates    │    │  Results    │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+```
+
+1. **Connect** — Authenticate via Spotify OAuth
+2. **Select** — Review your top artists and confirm your favorites
+3. **Search** — Choose your location and preferred date range
+4. **Discover** — View upcoming concerts from your selected artists
+
+## Screenshots
+
+| Landing Page | Preferences |
+|:------------:|:-----------:|
 | ![Landing](assets/screenshots/landing.png) | ![Preferences](assets/screenshots/preferences.png) |
 
-## Architecture
+## System Architecture
 
+### Application Flow
 ```mermaid
 flowchart LR
     U[User Browser] --> N[Nginx]
-    N --> A[StageScout Flask App]
-    A --> S[Spotify Web API]
+    N --> A[Flask App]
+    A --> S[Spotify API]
     A --> T[Ticketmaster API]
     A --> G[Geoapify API]
-    A --> C[Filesystem Cache and Sessions]
-    A --> M[Prometheus Metrics]
+    A --> C[Cache & Sessions]
+    A --> M[Prometheus]
     M --> P[Prometheus]
-    P --> F[Grafana]
+    P --> G2[Grafana]
 ```
 
-## Deployment model
-
+### Deployment Pipeline
 ```mermaid
 flowchart TD
     D[deploy.sh] --> TF[Terraform]
-    TF --> AWS[AWS EC2 + Security Group + Elastic IP]
+    TF --> AWS[AWS EC2]
     D --> AN[Ansible]
-    AN --> HOST[Ubuntu host]
+    AN --> HOST[Ubuntu Host]
     HOST --> NG[Nginx]
-    HOST --> DOCKER[Docker container]
-    DOCKER --> APP[Flask + Gunicorn]
+    HOST --> DC[Docker]
+    DC --> APP[StageScout]
 ```
 
-## Repository contents
+## Documentation
 
-- [docs/application-architecture.md](docs/application-architecture.md) explains the application structure, routes, data flow, and runtime behavior.
-- [docs/infrastructure.md](docs/infrastructure.md) covers provisioning, deployment, networking, and monitoring.
-- [docs/repository-scope.md](docs/repository-scope.md) defines what this public repo includes and what stays private.
+- [Application Architecture](docs/application-architecture.md) — Routes, data flow, security model
+- [Infrastructure](docs/infrastructure.md) — AWS setup, deployment, monitoring
+- [Repository Scope](docs/repository-scope.md) — What's public vs. private
 
-## Public repo scope
+## Public Repo Scope
 
-Included here:
-
-- Product overview
-- Architecture and deployment documentation
-- Public-safe screenshots and diagrams
+**Included:**
+- Product overview and feature documentation
+- Architecture diagrams and flowcharts
+- Public-safe screenshots
 - High-level stack and operations notes
 
-Excluded from this repo:
-
+**Excluded:**
 - Application source code
-- Infrastructure as code and Ansible playbooks
-- Secrets, credentials, and environment values
-- Internal debugging workflows and production-specific implementation details
+- Terraform and Ansible configurations
+- Secrets, credentials, and environment variables
+- Production deployment details
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+<p align="center">
+  Built with Flask • Powered by Spotify
+</p>
